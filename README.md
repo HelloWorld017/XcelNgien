@@ -1,5 +1,5 @@
 # XcelNgien
-An xceled ngien for minigames.
+A xceled ngien for minigames.
 
 This offers checking players, warps, etc... for developing minigames.
 
