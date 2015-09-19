@@ -339,4 +339,14 @@ class XcelNgien extends PluginBase implements Listener{
 
 		return $translation;
 	}
+
+	public static function getXcelPlayerByPlayer(Player $player){
+		if(!isset(self::$players[$player->getName()])) return null;
+		return self::$players[$player->getName()];
+	}
+
+	public static function getGameByWorldName($worldName){
+		if(!isset(self::$worlds[$worldName])) return null;
+		return self::$worlds[$worldName];
+	}
 }
