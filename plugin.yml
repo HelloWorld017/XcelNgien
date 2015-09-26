@@ -17,7 +17,7 @@ version: "erita [1.0]"
 description: "Xceled Ngien for minigames"
 main: org\Khinenw\xcel\XcelNgien
 api: 1.12.0
-depend: [GameCoreFramework]
+depend: [GameCoreFramework, XcelUpdater]
 
 permissions:
   xcel.*:

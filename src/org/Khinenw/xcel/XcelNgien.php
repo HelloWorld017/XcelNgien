@@ -18,6 +18,8 @@
 namespace org\Khinenw\xcel;
 
 use gamecore\gcframework\GCFramework;
+use Khinenw\XcelUpdater\UpdatePlugin;
+use Khinenw\XcelUpdater\XcelUpdater;
 use org\Khinenw\xcel\task\TickTask;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
@@ -30,11 +32,10 @@ use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\Player;
-use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 
-class XcelNgien extends PluginBase implements Listener{
+class XcelNgien extends UpdatePlugin implements Listener{
 	private static $instance;
 	/**
 	 * @var $worlds XcelGame[]
@@ -66,6 +67,7 @@ class XcelNgien extends PluginBase implements Listener{
 		$this->pushFile("translation_en.yml");
 		$this->pushFile("config.yml");
 
+		XcelUpdater::chkUpdate($this);
 		self::$configs = (new Config($this->getDataFolder() . "config.yml", Config::YAML))->getAll();
 
 		$lang = "en";
@@ -78,6 +80,7 @@ class XcelNgien extends PluginBase implements Listener{
 		self::$translations = (new Config($this->getDataFolder() . "translation_$lang.yml", Config::YAML))->getAll();
 		$this->getServer()->getScheduler()->scheduleRepeatingTask(new TickTask($this), 1);
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+
 	}
 
 	/**
@@ -348,5 +351,13 @@ class XcelNgien extends PluginBase implements Listener{
 	public static function getGameByWorldName($worldName){
 		if(!isset(self::$worlds[$worldName])) return null;
 		return self::$worlds[$worldName];
+	}
+
+	public function compVersion($pluginVersion, $repoVersion){
+		return $pluginVersion !== $repoVersion;
+	}
+
+	public function getPluginYamlURL(){
+		return "https://raw.githubusercontent.com/HelloWorld017/XcelNgien/master/plugin.yml";
 	}
 }
